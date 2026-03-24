@@ -1,9 +1,4 @@
-// ============================================================
-// COMMIT 52 — Phase 2: Core Logic — src/components/ui/ReminderToggle.jsx
-// ============================================================
-// COMMIT 53 — Phase 3: Polish — src/components/ui/ReminderToggle.jsx
-// ============================================================
-
+﻿
 import { useState, useEffect } from 'react'
 import axiosInstance from '../../api/axiosInstance'
 import toast from 'react-hot-toast'
@@ -13,7 +8,6 @@ export default function ReminderToggle({ userId }) {
   const [enabled, setEnabled] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  // Fetch current reminder preference
   useEffect(() => {
     if (!userId) return
     axiosInstance.get('/users/reminder-pref')
@@ -24,13 +18,12 @@ export default function ReminderToggle({ userId }) {
   async function toggle() {
     setLoading(true)
     const next = !enabled
-    // Optimistic
     setEnabled(next)
     try {
       await axiosInstance.patch('/users/reminder-pref', { reminderEnabled: next })
       toast.success(next
-        ? '🔔 Daily reminders enabled!'
-        : '🔕 Reminders turned off.')
+        ? 'ðŸ”” Daily reminders enabled!'
+        : 'ðŸ”• Reminders turned off.')
     } catch {
       setEnabled(!next)
       toast.error('Failed to update reminder preference.')
@@ -53,7 +46,6 @@ export default function ReminderToggle({ userId }) {
         </div>
       </div>
 
-      {/* Toggle switch */}
       <button
         onClick={toggle}
         disabled={loading}

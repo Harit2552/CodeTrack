@@ -1,7 +1,4 @@
-// ============================================================
-// COMMIT 55 — Phase 2: Core Logic — src/pages/NotFoundPage.jsx
-// ============================================================
-
+﻿
 import { Link } from 'react-router-dom'
 import { FiHome, FiCode } from 'react-icons/fi'
 

@@ -1,11 +1,4 @@
-// ============================================================
-// COMMIT 19 — Phase 1: Skeleton — src/components/layout/Navbar.jsx
-// ============================================================
-// COMMIT 20 — Phase 2: Core Logic — src/components/layout/Navbar.jsx
-// ============================================================
-// COMMIT 21 — Phase 3: Mobile menu + polish — src/components/layout/Navbar.jsx
-// ============================================================
-
+﻿
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
@@ -30,7 +23,7 @@ export default function Navbar() {
 
   function handleLogout() {
     logout()
-    toast.success('See you next time! 👋')
+    toast.success('See you next time! ðŸ‘‹')
     navigate('/login')
   }
 
@@ -45,13 +38,11 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
 
-          {/* Logo */}
           <Link to="/dashboard" className="flex items-center gap-2 text-primary-400">
             <FiCode size={22} />
             <span className="text-xl font-bold text-gradient">CodoTrack</span>
           </Link>
 
-          {/* Desktop links */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map(l => (
               <NavLink key={l.to} to={l.to} className={linkClass}>
@@ -60,9 +51,8 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Desktop right: user + logout */}
           <div className="hidden md:flex items-center gap-3">
-            <span className="text-gray-400 text-sm">Hi, {user?.name?.split(' ')[0] || 'Coder'} 👋</span>
+            <span className="text-gray-400 text-sm">Hi, {user?.name?.split(' ')[0] || 'Coder'} ðŸ‘‹</span>
             <button
               onClick={handleLogout}
               className="flex items-center gap-1.5 text-gray-400 hover:text-red-400
@@ -72,7 +62,6 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile hamburger */}
           <button
             onClick={() => setOpen(v => !v)}
             className="md:hidden p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800"
@@ -82,7 +71,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {open && (
         <div className="md:hidden bg-gray-900 border-t border-gray-800 px-4 py-3 space-y-1 animate-fade-in">
           {navLinks.map(l => (

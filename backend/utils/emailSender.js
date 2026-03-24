@@ -1,14 +1,6 @@
-// ============================================================
-// COMMIT 61 — Phase 1: Skeleton — backend/utils/emailSender.js
-// ============================================================
-// COMMIT 62 — Phase 2: Core Logic — backend/utils/emailSender.js
-// ============================================================
-// COMMIT 63 — Phase 3: Welcome email + Error handling — backend/utils/emailSender.js
-// ============================================================
-
+﻿
 const nodemailer = require('nodemailer')
 
-// ── Transporter ───────────────────────────────────────────
 const transporter = nodemailer.createTransport({
   host:   process.env.SMTP_HOST   || 'smtp.gmail.com',
   port:   parseInt(process.env.SMTP_PORT || '587'),
@@ -19,17 +11,15 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-// ── Verify on startup ────────────────────────────────────
 ;(async () => {
   try {
     await transporter.verify()
-    console.log('[EmailSender] ✅ SMTP connection verified')
+    console.log('[EmailSender] âœ… SMTP connection verified')
   } catch (err) {
-    console.warn('[EmailSender] ⚠️  SMTP verify failed (check env vars):', err.message)
+    console.warn('[EmailSender] âš ï¸  SMTP verify failed (check env vars):', err.message)
   }
 })()
 
-// ── Helper: themed HTML wrapper ─────────────────────────
 function htmlWrap(title, body) {
   return `
 <!DOCTYPE html>
@@ -59,18 +49,17 @@ function htmlWrap(title, body) {
 <body>
   <div class="container">
     <div class="header">
-      <h1>⚡ CodoTrack</h1>
+      <h1>âš¡ CodoTrack</h1>
       <p>${title}</p>
     </div>
     <div class="body">${body}</div>
     <div class="footer">You're receiving this because reminders are enabled.<br/>
-      © ${new Date().getFullYear()} CodoTrack</div>
+      Â© ${new Date().getFullYear()} CodoTrack</div>
   </div>
 </body>
 </html>`
 }
 
-// ── sendReminderEmail ────────────────────────────────────
 /**
  * @param {{ name, email, streak, solved }} options
  * @returns {{ success: boolean, messageId?: string }}
@@ -80,12 +69,12 @@ async function sendReminderEmail({ name, email, streak, solved }) {
   const appUrl    = process.env.FRONTEND_URL || 'http://localhost:5173'
 
   const body = `
-    <p>Hey <strong>${firstName}</strong> 👋,</p>
+    <p>Hey <strong>${firstName}</strong> ðŸ‘‹,</p>
     <p>You haven't logged any problems yet today. Don't break your streak!</p>
 
     <div style="text-align:center;margin:24px 0;">
       <div class="stat-box">
-        <div class="stat-val">${streak}🔥</div>
+        <div class="stat-val">${streak}ðŸ”¥</div>
         <div class="stat-lbl">Current Streak</div>
       </div>
       <div class="stat-box">
@@ -94,15 +83,15 @@ async function sendReminderEmail({ name, email, streak, solved }) {
       </div>
     </div>
 
-    <p>Even one problem a day keeps the streak alive. You've got this! 💪</p>
-    <a href="${appUrl}/add-problem" class="btn">Log a Problem Now →</a>
+    <p>Even one problem a day keeps the streak alive. You've got this! ðŸ’ª</p>
+    <a href="${appUrl}/add-problem" class="btn">Log a Problem Now â†’</a>
   `
 
   try {
     const info = await transporter.sendMail({
       from:    `"CodoTrack" <${process.env.SMTP_USER}>`,
       to:      email,
-      subject: `${firstName}, don't lose your ${streak}-day streak! 🔥`,
+      subject: `${firstName}, don't lose your ${streak}-day streak! ðŸ”¥`,
       html:    htmlWrap(`Don't lose your ${streak}-day streak!`, body),
     })
     return { success: true, messageId: info.messageId }
@@ -112,7 +101,6 @@ async function sendReminderEmail({ name, email, streak, solved }) {
   }
 }
 
-// ── sendWelcomeEmail ─────────────────────────────────────
 /**
  * @param {{ name, email }} options
  */
@@ -121,23 +109,23 @@ async function sendWelcomeEmail({ name, email }) {
   const appUrl    = process.env.FRONTEND_URL || 'http://localhost:5173'
 
   const body = `
-    <p>Hey <strong>${firstName}</strong> 🎉,</p>
+    <p>Hey <strong>${firstName}</strong> ðŸŽ‰,</p>
     <p>Welcome to <strong>CodoTrack</strong>! Your coding journey just got a whole lot better.</p>
     <p>Here's what you can do:</p>
     <ul style="color:#94a3b8;padding-left:20px;line-height:2;">
-      <li>📝 Log problems from LeetCode, Codeforces and more</li>
-      <li>📊 Track streaks and view progress charts</li>
-      <li>🏆 Earn achievement badges as you improve</li>
-      <li>🔔 Get daily reminders to stay consistent</li>
+      <li>ðŸ“ Log problems from LeetCode, Codeforces and more</li>
+      <li>ðŸ“Š Track streaks and view progress charts</li>
+      <li>ðŸ† Earn achievement badges as you improve</li>
+      <li>ðŸ”” Get daily reminders to stay consistent</li>
     </ul>
-    <a href="${appUrl}/dashboard" class="btn">Go to Dashboard →</a>
+    <a href="${appUrl}/dashboard" class="btn">Go to Dashboard â†’</a>
   `
 
   try {
     const info = await transporter.sendMail({
       from:    `"CodoTrack" <${process.env.SMTP_USER}>`,
       to:      email,
-      subject: `Welcome to CodoTrack, ${firstName}! 🚀`,
+      subject: `Welcome to CodoTrack, ${firstName}! ðŸš€`,
       html:    htmlWrap('Your coding tracker is ready!', body),
     })
     return { success: true, messageId: info.messageId }

@@ -1,9 +1,4 @@
-// ============================================================
-// COMMIT 29 — Phase 2: Core Logic — src/components/charts/ActivityLineChart.jsx
-// ============================================================
-// COMMIT 30 — Phase 3: Polish — src/components/charts/ActivityLineChart.jsx
-// ============================================================
-
+﻿
 import {
   Chart as ChartJS, CategoryScale, LinearScale,
   PointElement, LineElement, Filler, Tooltip,
@@ -13,7 +8,6 @@ import { Line } from 'react-chartjs-2'
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip)
 
 export default function ActivityLineChart({ weeklyData = [] }) {
-  // weeklyData: [{ date: '2025-03-01', count: 3 }, ...]
   const labels = weeklyData.map(d => {
     const dt = new Date(d.date)
     return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })

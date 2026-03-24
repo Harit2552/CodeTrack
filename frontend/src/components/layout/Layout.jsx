@@ -1,7 +1,4 @@
-// ============================================================
-// COMMIT 22 — Phase 2: Core Logic — src/components/layout/Layout.jsx
-// ============================================================
-
+﻿
 import Navbar from './Navbar'
 
 export default function Layout({ children }) {

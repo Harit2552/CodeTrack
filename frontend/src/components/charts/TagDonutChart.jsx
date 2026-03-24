@@ -1,9 +1,4 @@
-// ============================================================
-// COMMIT 27 — Phase 2: Core Logic — src/components/charts/TagDonutChart.jsx
-// ============================================================
-// COMMIT 28 — Phase 3: Polish — src/components/charts/TagDonutChart.jsx
-// ============================================================
-
+﻿
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 

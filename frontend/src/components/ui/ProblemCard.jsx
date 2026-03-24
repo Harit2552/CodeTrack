@@ -1,11 +1,4 @@
-// ============================================================
-// COMMIT 38 — Phase 1: Skeleton — src/components/ui/ProblemCard.jsx
-// ============================================================
-// COMMIT 39 — Phase 2: Core Logic — src/components/ui/ProblemCard.jsx
-// ============================================================
-// COMMIT 40 — Phase 3: Polish + Notes autosave — src/components/ui/ProblemCard.jsx
-// ============================================================
-
+﻿
 import { useState, useRef } from 'react'
 import { problemsApi } from '../../api/problemsApi'
 import toast from 'react-hot-toast'
@@ -37,7 +30,6 @@ export default function ProblemCard({ problem, onStatusChange, onDelete }) {
   const [notesSaved,   setNotesSaved]   = useState(false)
   const saveTimer = useRef(null)
 
-  // ── Status change ────────────────────────────────────────
   async function handleStatusChange(newStatus) {
     const prev = status
     setStatus(newStatus)          // optimistic
@@ -46,7 +38,7 @@ export default function ProblemCard({ problem, onStatusChange, onDelete }) {
     try {
       await problemsApi.update(problem._id, { status: newStatus })
       if (newStatus === 'Solved' && prev !== 'Solved') {
-        toast.success(`✅ "${problem.title}" marked solved! +${pointsFor(problem.difficulty)} pts`)
+        toast.success(`âœ… "${problem.title}" marked solved! +${pointsFor(problem.difficulty)} pts`)
       }
     } catch {
       setStatus(prev)             // rollback
@@ -61,7 +53,6 @@ export default function ProblemCard({ problem, onStatusChange, onDelete }) {
     return d === 'Easy' ? 10 : d === 'Medium' ? 20 : 30
   }
 
-  // ── Notes auto-save on blur ──────────────────────────────
   function handleNotesChange(e) {
     setNotes(e.target.value)
     setNotesSaved(false)
@@ -74,16 +65,13 @@ export default function ProblemCard({ problem, onStatusChange, onDelete }) {
       await problemsApi.update(problem._id, { notes: value })
       setNotesSaved(true)
     } catch {
-      // silent fail — not critical
     }
   }
 
-  // ── UI ───────────────────────────────────────────────────
   return (
     <div className="card animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-start gap-3">
 
-        {/* Left: title + meta */}
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2 mb-1.5">
             <h3 className="font-semibold text-gray-100 text-base truncate max-w-xs">
@@ -116,9 +104,7 @@ export default function ProblemCard({ problem, onStatusChange, onDelete }) {
           </div>
         </div>
 
-        {/* Right: status + actions */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          {/* Status selector */}
           <select
             value={status}
             onChange={e => handleStatusChange(e.target.value)}
@@ -133,7 +119,6 @@ export default function ProblemCard({ problem, onStatusChange, onDelete }) {
             ))}
           </select>
 
-          {/* Notes toggle */}
           <button
             onClick={() => setShowNotes(v => !v)}
             title="Toggle notes"
@@ -142,7 +127,6 @@ export default function ProblemCard({ problem, onStatusChange, onDelete }) {
             {showNotes ? <FiChevronUp size={16} /> : <FiChevronDown size={16} />}
           </button>
 
-          {/* Delete */}
           <button
             onClick={onDelete}
             title="Delete problem"
@@ -153,7 +137,6 @@ export default function ProblemCard({ problem, onStatusChange, onDelete }) {
         </div>
       </div>
 
-      {/* Expandable notes */}
       {showNotes && (
         <div className="mt-3 pt-3 border-t border-gray-800 animate-fade-in">
           <div className="flex items-center gap-2 mb-2">
@@ -170,7 +153,7 @@ export default function ProblemCard({ problem, onStatusChange, onDelete }) {
             onChange={handleNotesChange}
             onBlur={() => saveNotes(notes)}
             rows={3}
-            placeholder="Write your approach, key insights…"
+            placeholder="Write your approach, key insightsâ€¦"
             className="input text-sm font-mono resize-y"
           />
         </div>

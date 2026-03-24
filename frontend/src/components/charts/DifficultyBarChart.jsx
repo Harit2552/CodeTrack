@@ -1,11 +1,4 @@
-// ============================================================
-// COMMIT 24 — Phase 1: Skeleton — src/components/charts/DifficultyBarChart.jsx
-// ============================================================
-// COMMIT 25 — Phase 2: Core Logic — src/components/charts/DifficultyBarChart.jsx
-// ============================================================
-// COMMIT 26 — Phase 3: Polish + tooltips — src/components/charts/DifficultyBarChart.jsx
-// ============================================================
-
+﻿
 import {
   Chart as ChartJS,
   CategoryScale, LinearScale,

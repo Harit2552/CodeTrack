@@ -1,11 +1,4 @@
-// ============================================================
-// COMMIT 35 — Phase 1: Skeleton — src/pages/ProblemsPage.jsx
-// ============================================================
-// COMMIT 36 — Phase 2: Core Logic — src/pages/ProblemsPage.jsx
-// ============================================================
-// COMMIT 37 — Phase 3: Filter + Sort + Search — src/pages/ProblemsPage.jsx
-// ============================================================
-
+﻿
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { problemsApi } from '../api/problemsApi'
@@ -28,7 +21,6 @@ export default function ProblemsPage() {
   const [deleteTarget,  setDeleteTarget]  = useState(null)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
-  // ── Filters ──────────────────────────────────────────────
   const [search,     setSearch]     = useState('')
   const [difficulty, setDifficulty] = useState('All')
   const [status,     setStatus]     = useState('All')
@@ -36,7 +28,6 @@ export default function ProblemsPage() {
   const [tagFilter,  setTagFilter]  = useState('')
   const [sortBy,     setSortBy]     = useState('newest')
 
-  // ── Fetch ────────────────────────────────────────────────
   const fetchProblems = useCallback(async () => {
     setLoading(true); setError(null)
     try {
@@ -51,7 +42,6 @@ export default function ProblemsPage() {
 
   useEffect(() => { fetchProblems() }, [fetchProblems])
 
-  // ── Filtered & sorted list ───────────────────────────────
   const filtered = useMemo(() => {
     let list = [...problems]
 
@@ -71,7 +61,6 @@ export default function ProblemsPage() {
     return list
   }, [problems, search, difficulty, status, platform, tagFilter, sortBy])
 
-  // ── Delete ───────────────────────────────────────────────
   async function confirmDelete() {
     if (!deleteTarget) return
     setDeleteLoading(true)
@@ -87,12 +76,10 @@ export default function ProblemsPage() {
     }
   }
 
-  // ── Status update (bubble up from ProblemCard) ───────────
   function handleStatusChange(id, newStatus) {
     setProblems(prev => prev.map(p => p._id === id ? { ...p, status: newStatus } : p))
   }
 
-  // ── Collect all unique tags ──────────────────────────────
   const allTags = useMemo(() => {
     const s = new Set()
     problems.forEach(p => (p.tags ?? []).forEach(t => s.add(t)))
@@ -107,10 +94,8 @@ export default function ProblemsPage() {
   const hasFilters = search || difficulty !== 'All' || status !== 'All'
                    || platform !== 'All' || tagFilter
 
-  // ── UI ───────────────────────────────────────────────────
   return (
     <div className="space-y-6 animate-fade-in">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-3xl font-bold text-white">Problem List</h1>
@@ -123,15 +108,13 @@ export default function ProblemsPage() {
         </Link>
       </div>
 
-      {/* Search + filter bar */}
       <div className="card space-y-3">
         <div className="flex flex-col sm:flex-row gap-3">
-          {/* Search */}
           <div className="relative flex-1">
             <FiSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
             <input
               type="text" value={search} onChange={e => setSearch(e.target.value)}
-              placeholder="Search problems…"
+              placeholder="Search problemsâ€¦"
               className="input pl-10"
             />
             {search && (
@@ -142,17 +125,14 @@ export default function ProblemsPage() {
             )}
           </div>
 
-          {/* Sort */}
           <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="input w-auto">
             <option value="newest">Newest first</option>
             <option value="oldest">Oldest first</option>
-            <option value="title">A → Z</option>
+            <option value="title">A â†’ Z</option>
           </select>
         </div>
 
-        {/* Filter chips row */}
         <div className="flex flex-wrap gap-2">
-          {/* Difficulty */}
           {DIFFICULTIES.map(d => (
             <button key={d} onClick={() => setDifficulty(d)}
               className={`px-3 py-1 rounded-full text-xs font-medium border transition-all
@@ -165,7 +145,6 @@ export default function ProblemsPage() {
 
           <div className="w-px bg-gray-700 mx-1" />
 
-          {/* Status */}
           {STATUSES.map(s => (
             <button key={s} onClick={() => setStatus(s)}
               className={`px-3 py-1 rounded-full text-xs font-medium border transition-all
@@ -184,7 +163,6 @@ export default function ProblemsPage() {
           )}
         </div>
 
-        {/* Tag chips */}
         {allTags.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             <span className="text-gray-500 text-xs flex items-center gap-1 mr-1">
@@ -203,7 +181,6 @@ export default function ProblemsPage() {
         )}
       </div>
 
-      {/* Error */}
       {error && (
         <div className="flex items-center gap-3 text-red-400 card">
           <FiAlertCircle size={20} />
@@ -214,7 +191,6 @@ export default function ProblemsPage() {
         </div>
       )}
 
-      {/* Loading skeletons */}
       {loading && (
         <div className="space-y-3">
           {[...Array(6)].map((_,i) => (
@@ -223,7 +199,6 @@ export default function ProblemsPage() {
         </div>
       )}
 
-      {/* Empty state */}
       {!loading && !error && filtered.length === 0 && (
         <div className="card text-center py-16 text-gray-500">
           <FiInbox size={48} className="mx-auto mb-4 text-gray-700" />
@@ -232,7 +207,7 @@ export default function ProblemsPage() {
           </p>
           {!hasFilters && (
             <Link to="/add-problem" className="text-primary-400 hover:text-primary-300 text-sm mt-2 block">
-              Add your first problem →
+              Add your first problem â†’
             </Link>
           )}
           {hasFilters && (
@@ -243,7 +218,6 @@ export default function ProblemsPage() {
         </div>
       )}
 
-      {/* Problem cards */}
       {!loading && !error && filtered.length > 0 && (
         <div className="space-y-3">
           {filtered.map(p => (
@@ -257,7 +231,6 @@ export default function ProblemsPage() {
         </div>
       )}
 
-      {/* Delete confirm modal */}
       <Modal
         isOpen={!!deleteTarget}
         onClose={() => setDeleteTarget(null)}

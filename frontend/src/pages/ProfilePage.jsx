@@ -1,9 +1,4 @@
-// ============================================================
-// COMMIT 50 — Phase 2: Core Logic — src/pages/ProfilePage.jsx
-// ============================================================
-// COMMIT 51 — Phase 3: Edit mode + Polish — src/pages/ProfilePage.jsx
-// ============================================================
-
+﻿
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { profileApi } from '../api/problemsApi'
@@ -66,7 +61,7 @@ export default function ProfilePage() {
     { label: 'Easy',     value: stats?.easy    || 0 },
     { label: 'Medium',   value: stats?.medium  || 0 },
     { label: 'Hard',     value: stats?.hard    || 0 },
-    { label: 'Streak 🔥',value: stats?.currentStreak || 0 },
+    { label: 'Streak ðŸ”¥',value: stats?.currentStreak || 0 },
     { label: 'Points',   value: stats?.totalPoints   || 0 },
   ]
 
@@ -74,7 +69,6 @@ export default function ProfilePage() {
     <div className="max-w-2xl mx-auto space-y-6 animate-fade-in">
       <h1 className="text-3xl font-bold text-white">Profile</h1>
 
-      {/* Profile card */}
       <div className="card">
         {loading ? (
           <div className="space-y-3">
@@ -84,7 +78,6 @@ export default function ProfilePage() {
           </div>
         ) : (
           <>
-            {/* Avatar */}
             <div className="flex items-center gap-4 mb-6">
               <div className="w-16 h-16 rounded-2xl bg-primary-600/20 ring-1 ring-primary-500/30
                               flex items-center justify-center text-2xl font-bold text-primary-400">
@@ -104,7 +97,6 @@ export default function ProfilePage() {
               </button>
             </div>
 
-            {/* Edit form */}
             {editMode && (
               <div className="space-y-4 mb-6 animate-fade-in">
                 <div>
@@ -130,12 +122,11 @@ export default function ProfilePage() {
                   {saving
                     ? <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
                     : <FiSave size={16} />}
-                  {saving ? 'Saving…' : 'Save Changes'}
+                  {saving ? 'Savingâ€¦' : 'Save Changes'}
                 </button>
               </div>
             )}
 
-            {/* Stats grid */}
             <div className="grid grid-cols-3 gap-3">
               {statItems.map(({ label, value }) => (
                 <div key={label} className="text-center bg-gray-800 rounded-xl py-4">
@@ -148,7 +139,6 @@ export default function ProfilePage() {
         )}
       </div>
 
-      {/* Reminder settings */}
       <div className="card space-y-2">
         <h2 className="text-lg font-semibold text-white flex items-center gap-2">
           <FiCode size={18} className="text-primary-400" /> Reminder Settings
@@ -156,11 +146,10 @@ export default function ProfilePage() {
         <ReminderToggle userId={user?._id || user?.id} />
       </div>
 
-      {/* Danger zone */}
       <div className="card border-red-900/40">
         <h2 className="text-lg font-semibold text-red-400 mb-3">Danger Zone</h2>
         <button
-          onClick={() => { logout(); toast.success('See you next time! 👋') }}
+          onClick={() => { logout(); toast.success('See you next time! ðŸ‘‹') }}
           className="bg-red-600/20 hover:bg-red-600/30 border border-red-700/40
                      text-red-400 font-medium px-5 py-2.5 rounded-xl text-sm transition-all"
         >

@@ -1,11 +1,4 @@
-// ============================================================
-// COMMIT 31 — Phase 1: Skeleton — src/pages/DashboardPage.jsx
-// ============================================================
-// COMMIT 32 — Phase 2: Core Logic — src/pages/DashboardPage.jsx
-// ============================================================
-// COMMIT 33 — Phase 3: Error Handling + Polish — src/pages/DashboardPage.jsx
-// ============================================================
-
+﻿
 import { useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
@@ -29,7 +22,6 @@ export default function DashboardPage() {
   const [loading,    setLoading]    = useState(true)
   const [error,      setError]      = useState(null)
 
-  // ── Fetch all dashboard data ─────────────────────────────
   const fetchDashboard = useCallback(async () => {
     setLoading(true)
     setError(null)
@@ -42,7 +34,6 @@ export default function DashboardPage() {
       setStats(statsRes.data)
       setRecent(problemsRes.data.problems || problemsRes.data || [])
 
-      // Build weekly activity from problems list (last 30 days)
       const allRes   = await problemsApi.getAll({ limit: 1000 })
       const allProbs = allRes.data.problems || allRes.data || []
       setWeekly(buildWeeklyActivity(allProbs))
@@ -56,7 +47,6 @@ export default function DashboardPage() {
 
   useEffect(() => { fetchDashboard() }, [fetchDashboard])
 
-  // ── Helpers ──────────────────────────────────────────────
   function buildWeeklyActivity(problems) {
     const map = {}
     const now = new Date()
@@ -73,7 +63,6 @@ export default function DashboardPage() {
     return Object.entries(map).map(([date, count]) => ({ date, count }))
   }
 
-  // ── Error state ──────────────────────────────────────────
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
@@ -88,7 +77,6 @@ export default function DashboardPage() {
     )
   }
 
-  // ── Computed values ──────────────────────────────────────
   const totalSolved = stats ? (stats.easy || 0) + (stats.medium || 0) + (stats.hard || 0) : 0
   const streak      = stats?.currentStreak ?? 0
   const points      = stats?.totalPoints   ?? 0
@@ -97,27 +85,25 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8 animate-fade-in">
 
-      {/* ── Greeting ── */}
       <div>
         <h1 className="text-3xl font-bold text-white">
-          Welcome back, <span className="text-gradient">{user?.name?.split(' ')[0] || 'Coder'}</span> 👋
+          Welcome back, <span className="text-gradient">{user?.name?.split(' ')[0] || 'Coder'}</span> ðŸ‘‹
         </h1>
         <p className="text-gray-400 mt-1">Here's your coding progress at a glance.</p>
       </div>
 
-      {/* ── Stats grid ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatsCard
           title="Total Solved"
           value={totalSolved}
           icon={<FiCheckCircle size={22} />}
           color="primary"
-          change={`Easy: ${stats?.easy ?? 0} · Med: ${stats?.medium ?? 0} · Hard: ${stats?.hard ?? 0}`}
+          change={`Easy: ${stats?.easy ?? 0} Â· Med: ${stats?.medium ?? 0} Â· Hard: ${stats?.hard ?? 0}`}
           loading={loading}
         />
         <StatsCard
           title="Current Streak"
-          value={`${streak} 🔥`}
+          value={`${streak} ðŸ”¥`}
           icon={<FiZap size={22} />}
           color="yellow"
           change={streak > 0 ? 'Keep it going!' : 'Start today!'}
@@ -140,7 +126,6 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* ── Charts row ── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2">
           <ActivityLineChart weeklyData={weekly} />
@@ -151,7 +136,6 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <TagDonutChart tagCounts={stats?.byTag ?? {}} />
 
-        {/* ── Quick actions ── */}
         <div className="card flex flex-col gap-4">
           <h3 className="text-gray-300 font-semibold">Quick Actions</h3>
           <Link to="/add-problem" className="btn-primary flex items-center gap-2 justify-center">
@@ -166,12 +150,11 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* ── Recent problems ── */}
       <div>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-white">Recently Added</h2>
           <Link to="/problems" className="text-primary-400 hover:text-primary-300 text-sm">
-            View all →
+            View all â†’
           </Link>
         </div>
         <RecentProblemsTable problems={recent} loading={loading} />

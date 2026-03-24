@@ -1,9 +1,4 @@
-// ============================================================
-// COMMIT 56 — Phase 2: Core Logic — src/components/layout/Sidebar.jsx
-// ============================================================
-// COMMIT 57 — Phase 3: Collapsible + Active highlight — src/components/layout/Sidebar.jsx
-// ============================================================
-
+﻿
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
@@ -30,7 +25,7 @@ export default function Sidebar() {
 
   function handleLogout() {
     logout()
-    toast.success('See you next time! 👋')
+    toast.success('See you next time! ðŸ‘‹')
     navigate('/login')
   }
 
@@ -48,14 +43,12 @@ export default function Sidebar() {
                   transition-all duration-300 pt-4 pb-6
                   ${collapsed ? 'w-16' : 'w-56'}`}
     >
-      {/* Logo */}
       <div>
         <div className={`flex items-center gap-2 px-4 mb-6 ${collapsed ? 'justify-center px-2' : ''}`}>
           <FiCode size={22} className="text-primary-400 flex-shrink-0" />
           {!collapsed && <span className="text-lg font-bold text-gradient">CodoTrack</span>}
         </div>
 
-        {/* Nav links */}
         <nav className="space-y-1 px-2">
           {LINKS.map(l => (
             <NavLink key={l.to} to={l.to} className={linkClass} title={collapsed ? l.label : ''}>
@@ -66,7 +59,6 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      {/* Bottom: user + logout + collapse */}
       <div className="px-2 space-y-1">
         {!collapsed && user && (
           <div className="px-3 py-2 text-xs text-gray-500 truncate">
@@ -85,7 +77,6 @@ export default function Sidebar() {
           {!collapsed && 'Logout'}
         </button>
 
-        {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed(v => !v)}
           className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm

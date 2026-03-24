@@ -1,9 +1,4 @@
-// ============================================================
-// COMMIT 48 — Phase 2: Core Logic — src/pages/BadgesPage.jsx
-// ============================================================
-// COMMIT 49 — Phase 3: Empty state + Polish — src/pages/BadgesPage.jsx
-// ============================================================
-
+﻿
 import { useEffect, useState } from 'react'
 import { badgesApi } from '../api/problemsApi'
 import BadgeCard from '../components/ui/BadgeCard'
@@ -33,17 +28,15 @@ export default function BadgesPage() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-white flex items-center gap-3">
           <FiAward className="text-primary-400" /> Badges
         </h1>
         <p className="text-gray-400 mt-1">
-          {loading ? '…' : `${earned.length} earned · ${locked.length} locked`}
+          {loading ? 'â€¦' : `${earned.length} earned Â· ${locked.length} locked`}
         </p>
       </div>
 
-      {/* Error */}
       {error && (
         <div className="card flex items-center gap-3 text-red-400">
           <FiAlertCircle size={20} />
@@ -54,7 +47,6 @@ export default function BadgesPage() {
         </div>
       )}
 
-      {/* Loading skeleton */}
       {loading && (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {[...Array(10)].map((_,i) => (
@@ -63,13 +55,12 @@ export default function BadgesPage() {
         </div>
       )}
 
-      {/* Earned */}
       {!loading && !error && (
         <>
           {earned.length > 0 ? (
             <section>
               <h2 className="text-lg font-semibold text-white mb-4">
-                🏆 Earned ({earned.length})
+                ðŸ† Earned ({earned.length})
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {earned.map(b => <BadgeCard key={b._id} badge={b} />)}
@@ -83,11 +74,10 @@ export default function BadgesPage() {
             </div>
           )}
 
-          {/* Locked */}
           {locked.length > 0 && (
             <section>
               <h2 className="text-lg font-semibold text-white mb-4">
-                🔒 Locked ({locked.length})
+                ðŸ”’ Locked ({locked.length})
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {locked.map(b => <BadgeCard key={b._id} badge={b} />)}

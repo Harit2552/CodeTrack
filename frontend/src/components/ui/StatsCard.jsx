@@ -1,15 +1,12 @@
-// ============================================================
-// COMMIT 23 — Phase 2: Core Logic — src/components/ui/StatsCard.jsx
-// ============================================================
-
+﻿
 /**
  * Props:
- *   title   — string          e.g. "Total Solved"
- *   value   — number|string   e.g. 142
- *   icon    — ReactNode
- *   color   — tailwind color class suffix (e.g. "primary", "green", "yellow", "red")
- *   change  — optional string e.g. "+5 this week"
- *   loading — bool
+ *   title   â€” string          e.g. "Total Solved"
+ *   value   â€” number|string   e.g. 142
+ *   icon    â€” ReactNode
+ *   color   â€” tailwind color class suffix (e.g. "primary", "green", "yellow", "red")
+ *   change  â€” optional string e.g. "+5 this week"
+ *   loading â€” bool
  */
 export default function StatsCard({ title, value, icon, color = 'primary', change, loading }) {
   const colorMap = {
@@ -33,7 +30,7 @@ export default function StatsCard({ title, value, icon, color = 'primary', chang
         {loading ? (
           <div className="h-7 w-16 bg-gray-700 rounded animate-pulse mt-1" />
         ) : (
-          <p className="text-2xl font-bold text-white mt-0.5">{value ?? '—'}</p>
+          <p className="text-2xl font-bold text-white mt-0.5">{value ?? 'â€”'}</p>
         )}
         {change && !loading && (
           <p className="text-xs text-gray-500 mt-0.5">{change}</p>

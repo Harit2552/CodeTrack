@@ -1,11 +1,4 @@
-// ============================================================
-// COMMIT 41 — Phase 1: Skeleton — src/pages/AddProblemPage.jsx
-// ============================================================
-// COMMIT 42 — Phase 2: Core Logic — src/pages/AddProblemPage.jsx
-// ============================================================
-// COMMIT 43 — Phase 3: Validation + Toast — src/pages/AddProblemPage.jsx
-// ============================================================
-
+﻿
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { problemsApi } from '../api/problemsApi'
@@ -28,7 +21,6 @@ export default function AddProblemPage() {
   const [errors,  setErrors]  = useState({})
   const [loading, setLoading] = useState(false)
 
-  // ── Validation ──────────────────────────────────────────
   function validate() {
     const e = {}
     if (!form.title.trim())       e.title    = 'Title is required'
@@ -39,7 +31,6 @@ export default function AddProblemPage() {
     return Object.keys(e).length === 0
   }
 
-  // ── Submit ───────────────────────────────────────────────
   async function handleSubmit(e) {
     e.preventDefault()
     if (!validate()) return
@@ -50,7 +41,7 @@ export default function AddProblemPage() {
         title: form.title.trim(),
         tags:  form.tags.map(t => t.trim()).filter(Boolean),
       })
-      toast.success('Problem added! 🎉')
+      toast.success('Problem added! ðŸŽ‰')
       navigate('/problems')
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to add problem.')
@@ -64,7 +55,6 @@ export default function AddProblemPage() {
     if (errors[e.target.name]) setErrors(prev => ({ ...prev, [e.target.name]: '' }))
   }
 
-  // ── Tag management ───────────────────────────────────────
   function addTag() {
     const t = tagInput.trim()
     if (!t || form.tags.includes(t) || form.tags.length >= 10) return
@@ -80,7 +70,6 @@ export default function AddProblemPage() {
     if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addTag() }
   }
 
-  // ── UI ───────────────────────────────────────────────────
   return (
     <div className="max-w-2xl mx-auto animate-slide-up">
       <div className="mb-6">
@@ -91,7 +80,6 @@ export default function AddProblemPage() {
       <div className="card">
         <form onSubmit={handleSubmit} noValidate className="space-y-5">
 
-          {/* Title */}
           <Field label="Problem Title *" error={errors.title}>
             <input
               name="title" value={form.title} onChange={handleChange}
@@ -100,12 +88,11 @@ export default function AddProblemPage() {
             />
           </Field>
 
-          {/* Platform + Difficulty row */}
           <div className="grid grid-cols-2 gap-4">
             <Field label="Platform *" error={errors.platform}>
               <select name="platform" value={form.platform} onChange={handleChange}
                 className={`input ${errors.platform ? 'border-red-500' : ''}`}>
-                <option value="">Select…</option>
+                <option value="">Selectâ€¦</option>
                 {PLATFORMS.map(p => <option key={p} value={p}>{p}</option>)}
               </select>
             </Field>
@@ -116,7 +103,6 @@ export default function AddProblemPage() {
             </Field>
           </div>
 
-          {/* Status */}
           <Field label="Status">
             <div className="flex gap-2">
               {STATUSES.map(s => (
@@ -132,13 +118,12 @@ export default function AddProblemPage() {
             </div>
           </Field>
 
-          {/* Tags */}
           <Field label={`Tags (${form.tags.length}/10)`}>
             <div className="flex gap-2">
               <input
                 value={tagInput} onChange={e => setTagInput(e.target.value)}
                 onKeyDown={handleTagKeyDown}
-                placeholder="e.g. Array, DP — press Enter"
+                placeholder="e.g. Array, DP â€” press Enter"
                 className="input"
               />
               <button type="button" onClick={addTag}
@@ -162,7 +147,6 @@ export default function AddProblemPage() {
             )}
           </Field>
 
-          {/* Solution Link */}
           <Field label="Solution / Problem Link" error={errors.solutionLink}>
             <input
               name="solutionLink" type="url" value={form.solutionLink} onChange={handleChange}
@@ -171,23 +155,21 @@ export default function AddProblemPage() {
             />
           </Field>
 
-          {/* Notes */}
           <Field label="Notes / Approach">
             <textarea
               name="notes" value={form.notes} onChange={handleChange}
-              rows={4} placeholder="Write your approach, key observations…"
+              rows={4} placeholder="Write your approach, key observationsâ€¦"
               className="input font-mono resize-y"
             />
           </Field>
 
-          {/* Buttons */}
           <div className="flex gap-3 pt-2">
             <button type="submit" disabled={loading}
               className="btn-primary flex items-center gap-2">
               {loading
                 ? <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
                 : <FiPlusCircle size={17} />}
-              {loading ? 'Adding…' : 'Add Problem'}
+              {loading ? 'Addingâ€¦' : 'Add Problem'}
             </button>
             <button type="button" onClick={() => navigate('/problems')}
               className="btn-secondary">
@@ -200,7 +182,6 @@ export default function AddProblemPage() {
   )
 }
 
-// ── Small helper component ───────────────────────────────
 function Field({ label, error, children }) {
   return (
     <div>

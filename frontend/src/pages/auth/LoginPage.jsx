@@ -1,11 +1,4 @@
-// ============================================================
-// COMMIT 13 — Phase 1: Skeleton — src/pages/auth/LoginPage.jsx
-// ============================================================
-// COMMIT 14 — Phase 2: Core Logic — src/pages/auth/LoginPage.jsx
-// ============================================================
-// COMMIT 15 — Phase 3: Validation + Polish — src/pages/auth/LoginPage.jsx
-// ============================================================
-
+﻿
 import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
@@ -23,7 +16,6 @@ export default function LoginPage() {
 
   const from = location.state?.from?.pathname || '/dashboard'
 
-  // ── Validation ──────────────────────────────────────────
   function validate() {
     const e = {}
     if (!form.email)                          e.email    = 'Email is required'
@@ -34,14 +26,13 @@ export default function LoginPage() {
     return Object.keys(e).length === 0
   }
 
-  // ── Submit ───────────────────────────────────────────────
   async function handleSubmit(e) {
     e.preventDefault()
     if (!validate()) return
 
     const result = await login(form.email, form.password)
     if (result.success) {
-      toast.success('Welcome back! 🎉')
+      toast.success('Welcome back! ðŸŽ‰')
       navigate(from, { replace: true })
     } else {
       toast.error(result.error)
@@ -53,14 +44,11 @@ export default function LoginPage() {
     if (errors[e.target.name]) setErrors(prev => ({ ...prev, [e.target.name]: '' }))
   }
 
-  // ── UI ───────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
-      {/* Glow decoration */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary-600/20 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative w-full max-w-md animate-slide-up">
-        {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 text-primary-400 mb-4">
             <FiCode size={28} />
@@ -70,11 +58,9 @@ export default function LoginPage() {
           <p className="text-gray-400 mt-1">Sign in to continue your journey</p>
         </div>
 
-        {/* Card */}
         <div className="card">
           <form onSubmit={handleSubmit} noValidate className="space-y-5">
 
-            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1.5">
                 Email address
@@ -94,7 +80,6 @@ export default function LoginPage() {
               {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1.5">
                 Password
@@ -106,7 +91,7 @@ export default function LoginPage() {
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  placeholder="••••••••"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                   className={`input pl-10 pr-10 ${errors.password ? 'border-red-500 focus:ring-red-500' : ''}`}
                   autoComplete="current-password"
                 />
@@ -122,7 +107,6 @@ export default function LoginPage() {
               {errors.password && <p className="text-red-400 text-xs mt-1">{errors.password}</p>}
             </div>
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={loading}

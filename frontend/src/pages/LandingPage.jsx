@@ -1,7 +1,4 @@
-// ============================================================
-// COMMIT 54 — Phase 2: Core Logic — src/pages/LandingPage.jsx
-// ============================================================
-
+﻿
 import { Link } from 'react-router-dom'
 import { FiCode, FiTrendingUp, FiAward, FiBell, FiArrowRight } from 'react-icons/fi'
 
@@ -21,7 +18,7 @@ const FEATURES = [
   {
     icon: <FiAward size={24} />,
     title: 'Earn Badges',
-    desc:  'Unlock achievement badges as you hit milestones — stay motivated every day.',
+    desc:  'Unlock achievement badges as you hit milestones â€” stay motivated every day.',
     color: 'text-yellow-400 bg-yellow-500/10',
   },
   {
@@ -35,11 +32,9 @@ const FEATURES = [
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
-      {/* Glow */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px]
                       bg-primary-600/15 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Nav */}
       <nav className="relative flex items-center justify-between px-6 py-5 max-w-7xl mx-auto">
         <div className="flex items-center gap-2 text-primary-400">
           <FiCode size={24} />
@@ -51,10 +46,9 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero */}
       <section className="relative text-center px-6 py-24 max-w-4xl mx-auto">
         <span className="badge bg-primary-900/60 text-primary-400 mb-6 inline-block">
-          🚀 Your personal coding companion
+          ðŸš€ Your personal coding companion
         </span>
         <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
           Track your{' '}
@@ -62,7 +56,7 @@ export default function LandingPage() {
           <br />like a pro
         </h1>
         <p className="text-gray-400 text-lg mt-6 max-w-2xl mx-auto leading-relaxed">
-          Log problems, visualise streaks, earn badges and get daily reminders —
+          Log problems, visualise streaks, earn badges and get daily reminders â€”
           all in one beautiful dashboard built for competitive programmers.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
@@ -75,7 +69,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features */}
       <section className="relative max-w-6xl mx-auto px-6 pb-24">
         <h2 className="text-3xl font-bold text-center text-white mb-12">
           Everything you need to stay consistent
@@ -93,7 +86,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="text-center pb-24 px-6">
         <div className="card max-w-xl mx-auto py-12">
           <h2 className="text-2xl font-bold text-white mb-3">Ready to level up?</h2>
@@ -104,9 +96,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="text-center text-gray-600 text-sm pb-8">
-        &copy; {new Date().getFullYear()} CodoTrack — Built with ❤️ by Member 4
+        &copy; {new Date().getFullYear()} CodoTrack â€” Built with â¤ï¸ by Member 4
       </footer>
     </div>
   )

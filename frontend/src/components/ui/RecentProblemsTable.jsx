@@ -1,7 +1,4 @@
-// ============================================================
-// COMMIT 34 — Phase 2: Core Logic — src/components/ui/RecentProblemsTable.jsx
-// ============================================================
-
+﻿
 import { Link } from 'react-router-dom'
 
 const DIFFICULTY_CLASS = {
@@ -32,7 +29,7 @@ export default function RecentProblemsTable({ problems = [], loading }) {
       <div className="card text-center py-12 text-gray-500">
         <p className="text-lg">No problems yet.</p>
         <Link to="/add-problem" className="text-primary-400 hover:text-primary-300 text-sm mt-1 block">
-          Add your first problem →
+          Add your first problem â†’
         </Link>
       </div>
     )
@@ -60,7 +57,7 @@ export default function RecentProblemsTable({ problems = [], loading }) {
                          className="hover:text-primary-400 transition-colors">{p.title}</a>
                     : p.title}
                 </td>
-                <td className="px-6 py-3.5 text-gray-400">{p.platform || '—'}</td>
+                <td className="px-6 py-3.5 text-gray-400">{p.platform || 'â€”'}</td>
                 <td className="px-6 py-3.5">
                   <span className={DIFFICULTY_CLASS[p.difficulty] || 'badge bg-gray-800 text-gray-400'}>
                     {p.difficulty}
