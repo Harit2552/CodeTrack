@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
+const generateToken = require("../utils/generateToken");
 
 const registerUser = async (req, res, next) => {
   try {
@@ -38,9 +38,7 @@ const loginUser = async (req, res, next) => {
       throw new Error("Invalid credentials");
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN || "7d",
-    });
+    const token = generateToken(user._id);
 
     res.status(200).json({
       id: user._id,
