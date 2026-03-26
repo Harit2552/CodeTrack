@@ -27,7 +27,25 @@ const getProblems = async (_req, res, next) => {
   }
 };
 
+const updateProblem = async (req, res, next) => {
+  try {
+    const problem = await Problem.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!problem) {
+      return res.status(404).json({ message: "Problem not found" });
+    }
+
+    return res.status(200).json(problem);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createProblem,
   getProblems,
+  updateProblem,
 };
