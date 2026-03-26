@@ -1,4 +1,6 @@
 const Problem = require("../models/Problem");
+const User = require("../models/User");
+const { getPointsForDifficulty } = require("../utils/progressCalculator");
 
 const createProblem = async (req, res, next) => {
   try {
@@ -32,17 +34,24 @@ const getProblems = async (req, res, next) => {
 
 const updateProblem = async (req, res, next) => {
   try {
-    const problem = await Problem.findOneAndUpdate(
-      { _id: req.params.id, user: req.user._id },
-      req.body,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+    const existingProblem = await Problem.findOne({
+      _id: req.params.id,
+      user: req.user._id,
+    });
 
-    if (!problem) {
+    if (!existingProblem) {
       return res.status(404).json({ message: "Problem not found" });
+    }
+
+    const wasSolved = existingProblem.status === "Solved";
+
+    Object.assign(existingProblem, req.body);
+    const problem = await existingProblem.save();
+
+    const isSolved = problem.status === "Solved";
+    if (!wasSolved && isSolved) {
+      const points = getPointsForDifficulty(problem.difficulty);
+      await User.findByIdAndUpdate(req.user._id, { $inc: { totalPoints: points } });
     }
 
     return res.status(200).json(problem);
