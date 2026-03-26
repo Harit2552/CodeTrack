@@ -18,6 +18,16 @@ const createProblem = async (req, res, next) => {
   }
 };
 
+const getProblems = async (_req, res, next) => {
+  try {
+    const problems = await Problem.find().sort({ createdAt: -1 });
+    return res.status(200).json({ problems });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createProblem,
+  getProblems,
 };
