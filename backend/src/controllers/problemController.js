@@ -1,5 +1,4 @@
-const Problem = require("../models/Problem");
-const User = require("../models/User");
+const { Problem, User } = require("../models");
 const {
   getPointsForDifficulty,
   getStreakAfterSolve,

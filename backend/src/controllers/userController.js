@@ -1,6 +1,4 @@
-const User = require("../models/User");
-const Problem = require("../models/Problem");
-const Badge = require("../models/Badge");
+const { User, Problem, Badge } = require("../models");
 const { buildProgressStats } = require("../utils/progressCalculator");
 const { getEarnedBadgeKeys } = require("../utils/badgeService");
 
