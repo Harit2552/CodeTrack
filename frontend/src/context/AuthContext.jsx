@@ -1,20 +1,7 @@
-// ============================================================
-// COMMIT 6 — Phase 1: Skeleton — src/context/AuthContext.jsx
-// ============================================================
-// Basic context + provider scaffold
-// ============================================================
-// COMMIT 7 — Phase 2: Core Logic — src/context/AuthContext.jsx
-// ============================================================
-// Login / register / logout actions, JWT persistence
-// ============================================================
-// COMMIT 8 — Phase 3: Error Handling — src/context/AuthContext.jsx
-// ============================================================
-// Token expiry check on mount, clear stale state
-
+﻿
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import axiosInstance from '../api/axiosInstance'
 
-// ── State shape ───────────────────────────────────────────
 const initialState = {
   user:    JSON.parse(localStorage.getItem('ct_user'))   || null,
   token:   localStorage.getItem('ct_token')               || null,
@@ -22,7 +9,6 @@ const initialState = {
   error:   null,
 }
 
-// ── Reducer ───────────────────────────────────────────────
 function authReducer(state, action) {
   switch (action.type) {
     case 'AUTH_START':
@@ -38,13 +24,11 @@ function authReducer(state, action) {
   }
 }
 
-// ── Context ───────────────────────────────────────────────
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState)
 
-  // Persist token + user to localStorage whenever they change
   useEffect(() => {
     if (state.token) {
       localStorage.setItem('ct_token', state.token)
@@ -55,7 +39,6 @@ export function AuthProvider({ children }) {
     }
   }, [state.token, state.user])
 
-  // ── Actions ─────────────────────────────────────────────
 
   async function login(email, password) {
     dispatch({ type: 'AUTH_START' })
@@ -104,7 +87,6 @@ export function AuthProvider({ children }) {
   )
 }
 
-// ── Custom hook ───────────────────────────────────────────
 export function useAuth() {
   const ctx = useContext(AuthContext)
   if (!ctx) throw new Error('useAuth must be used inside <AuthProvider>')

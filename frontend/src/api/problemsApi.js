@@ -1,7 +1,4 @@
-// ============================================================
-// COMMIT 12 — Phase 2: Core Logic — src/api/problemsApi.js
-// ============================================================
-import axiosInstance from './axiosInstance'
+﻿import axiosInstance from './axiosInstance'
 
 export const problemsApi = {
   getAll:    (params)  => axiosInstance.get('/problems', { params }),
