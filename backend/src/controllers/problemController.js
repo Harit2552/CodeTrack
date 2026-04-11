@@ -189,6 +189,41 @@ const deleteProblem = async (req, res, next) => {
   }
 };
 
+const getQuestionsByPlatform = async (req, res, next) => {
+  try {
+    const { platform, difficulty, tag, search, limit = 100 } = req.query;
+
+    if (!platform) {
+      return res.status(400).json({ message: "Platform is required" });
+    }
+
+    const filters = { isPredefined: true, platform };
+
+    if (difficulty) {
+      filters.difficulty = difficulty;
+    }
+
+    if (tag) {
+      filters.tags = { $in: [tag] };
+    }
+
+    if (search) {
+      filters.title = { $regex: search, $options: "i" };
+    }
+
+    const safeLimit = Math.min(Number(limit) || 100, 500);
+
+    const questions = await QuestionBank.find(filters)
+      .sort({ title: 1, difficulty: 1 })
+      .limit(safeLimit)
+      .lean();
+
+    return res.status(200).json({ questions, count: questions.length, platform });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createProblem,
   getProblems,
@@ -197,4 +232,5 @@ module.exports = {
   getProblemStats,
   updateProblem,
   deleteProblem,
+  getQuestionsByPlatform,
 };

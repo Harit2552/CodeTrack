@@ -65,6 +65,16 @@ function htmlWrap(title, body) {
  * @returns {{ success: boolean, messageId?: string }}
  */
 async function sendReminderEmail({ name, email, streak, solved }) {
+  // Validate required parameters
+  if (!email) {
+    throw new Error('Email is required to send reminder');
+  }
+
+  // Validate SMTP configuration
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    throw new Error('SMTP_USER and SMTP_PASS environment variables are not configured');
+  }
+
   const firstName = (name || 'Coder').split(' ')[0]
   const appUrl    = process.env.FRONTEND_URL || 'http://localhost:5173'
 
@@ -105,6 +115,16 @@ async function sendReminderEmail({ name, email, streak, solved }) {
  * @param {{ name, email }} options
  */
 async function sendWelcomeEmail({ name, email }) {
+  // Validate required parameters
+  if (!email) {
+    throw new Error('Email is required to send welcome email');
+  }
+
+  // Validate SMTP configuration
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    throw new Error('SMTP_USER and SMTP_PASS environment variables are not configured');
+  }
+
   const firstName = (name || 'Coder').split(' ')[0]
   const appUrl    = process.env.FRONTEND_URL || 'http://localhost:5173'
 
