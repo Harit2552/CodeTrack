@@ -20,6 +20,25 @@ const createProblem = async (req, res, next) => {
       solutionLink,
     });
 
+    // Add the problem to QuestionBank if it doesn't already exist
+    try {
+      await QuestionBank.findOneAndUpdate(
+        { title: title.trim(), platform: platform.trim() },
+        {
+          title: title.trim(),
+          platform: platform.trim(),
+          difficulty,
+          tags: tags || [],
+          url: solutionLink || "",
+          isPredefined: false,
+        },
+        { upsert: true, new: true }
+      );
+    } catch (bankError) {
+      // Log the error but don't fail the problem creation
+      console.error("Error adding problem to question bank:", bankError.message);
+    }
+
     if (problem.status === "Solved") {
       const user = await User.findById(req.user._id).select("currentStreak lastActive");
       if (user) {
@@ -77,7 +96,7 @@ const getProblemById = async (req, res, next) => {
 const getPredefinedQuestions = async (req, res, next) => {
   try {
     const { difficulty, tag, platform, search, limit = 100 } = req.query;
-    const filters = { isPredefined: true };
+    const filters = {};
 
     if (difficulty) {
       filters.difficulty = difficulty;
@@ -197,7 +216,7 @@ const getQuestionsByPlatform = async (req, res, next) => {
       return res.status(400).json({ message: "Platform is required" });
     }
 
-    const filters = { isPredefined: true, platform };
+    const filters = { platform };
 
     if (difficulty) {
       filters.difficulty = difficulty;

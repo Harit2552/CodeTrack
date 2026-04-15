@@ -29,6 +29,7 @@ const questionBankSchema = new mongoose.Schema(
     isPredefined: {
       type: Boolean,
       default: true,
+      description: "true for system-defined questions, false for user-created problems", 
     },
   },
   {
