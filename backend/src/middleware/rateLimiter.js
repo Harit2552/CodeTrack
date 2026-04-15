@@ -1,4 +1,5 @@
 const rateLimit = require("express-rate-limit");
+const { ipKeyGenerator } = require("express-rate-limit");
 
 // Rate limiter for login attempts
 const loginLimiter = rateLimit({
@@ -13,10 +14,7 @@ const loginLimiter = rateLimit({
     // Skip rate limiting for health checks or other non-auth endpoints
     return false;
   },
-  keyGenerator: (req) => {
-    // Rate limit by IP address
-    return req.ip;
-  },
+  keyGenerator: ipKeyGenerator,
 });
 
 // Rate limiter for registration attempts
@@ -29,10 +27,7 @@ const registerLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: (req) => {
-    // Rate limit by IP address
-    return req.ip;
-  },
+  keyGenerator: ipKeyGenerator,
 });
 
 // General API rate limiter (optional, for all API endpoints)
@@ -44,9 +39,7 @@ const apiLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: (req) => {
-    return req.ip;
-  },
+  keyGenerator: ipKeyGenerator,
 });
 
 module.exports = { loginLimiter, registerLimiter, apiLimiter };
