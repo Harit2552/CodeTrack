@@ -59,8 +59,8 @@ The **Question Bank** feature enables users to explore and filter coding problem
 
 ## Performance Considerations
 
-* Questions are loaded lazily whenever the selected platform changes
-* Tags are extracted during data fetching instead of on every re-render
-* The "All" platform aggregates data using sequential API calls to prevent race conditions
-* The default platform is set to "All" to ensure immediate data visibility
+- Questions are loaded lazily whenever the selected platform changes
+- Tags are extracted during data fetching instead of on every re-render
+- The "All" platform aggregates data using sequential API calls to prevent race conditions
+- The default platform is set to "All" to ensure immediate data visibility
 
