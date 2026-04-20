@@ -11,6 +11,10 @@ package-lock.json
 dist/
 build/
 
+# Logs
+logs/
+*.log
+
 # IDE
 .vscode/
 .idea/
