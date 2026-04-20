@@ -148,12 +148,13 @@ npm run dev
 
 ## 🔒 Security Notes
 
-- ✅ `.env` files are ignored from git (no sensitive data exposed)
-- ✅ `.env.example` files serve as templates
-- ✅ JWT tokens stored in localStorage (frontend)
-- ✅ Authorization middleware on all protected routes
-- ✅ Password hashing on user model
-- ✅ CORS configured with `FRONTEND_URL`
+* `.env` files are excluded from version control to keep sensitive data secure
+* `.env.example` files are provided as templates for required environment variables
+* JWT tokens are stored in `localStorage` on the frontend
+* Authorization middleware is applied to all protected routes
+* User passwords are securely hashed in the user model
+* CORS is configured using `FRONTEND_URL`
+
 
 ---
 
