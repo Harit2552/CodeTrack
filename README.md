@@ -9,7 +9,7 @@ Coding practice tracker with React frontend and Node.js + Express + MongoDB back
 
 ## Current Project Status
 
-This README reflects work implemented so far on the backend branch.
+This README reflects the implementation status currently available on main.
 
 ### Implemented
 
