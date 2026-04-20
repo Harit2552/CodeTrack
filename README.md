@@ -2,6 +2,8 @@
 
 Coding practice tracker with React frontend and Node.js + Express + MongoDB backend.
 
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+
 ## Current Status (Backend Branch)
 
 This README reflects work implemented so far on the backend branch.
