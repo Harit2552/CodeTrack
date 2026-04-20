@@ -54,6 +54,15 @@ This README reflects work implemented so far on the backend branch.
 - GET /api/problems/stats
 - GET /api/badges
 
+## Features
+
+- User authentication and registration
+- Problem tracking with difficulty levels
+- Question bank with platform filtering
+- Progress statistics and charts
+- Badge system for achievements
+- Responsive design with Tailwind CSS
+
 ## Getting Started
 
 To run the project locally, follow the setup instructions in the respective directories.
