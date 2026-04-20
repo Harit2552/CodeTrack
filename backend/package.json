@@ -1,7 +1,7 @@
 {
   "name": "codetrack-backend",
   "version": "1.0.0",
-  "description": "Backend API for CodeTrack",
+  "description": "Backend API for CodeTrack application",
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
