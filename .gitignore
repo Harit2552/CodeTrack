@@ -15,6 +15,10 @@ build/
 logs/
 *.log
 
+# Temporary files
+tmp/
+temp/
+
 # IDE
 .vscode/
 .idea/
