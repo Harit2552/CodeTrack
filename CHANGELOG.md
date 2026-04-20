@@ -17,3 +17,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Updated package descriptions and added keywords
 - Improved .gitignore with better organization
+- Refined contributor-facing documentation for readability and consistency
