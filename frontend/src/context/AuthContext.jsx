@@ -1,20 +1,7 @@
-// ============================================================
-// COMMIT 6 — Phase 1: Skeleton — src/context/AuthContext.jsx
-// ============================================================
-// Basic context + provider scaffold
-// ============================================================
-// COMMIT 7 — Phase 2: Core Logic — src/context/AuthContext.jsx
-// ============================================================
-// Login / register / logout actions, JWT persistence
-// ============================================================
-// COMMIT 8 — Phase 3: Error Handling — src/context/AuthContext.jsx
-// ============================================================
-// Token expiry check on mount, clear stale state
-
+﻿
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import axiosInstance from '../api/axiosInstance'
 
-// ── State shape ───────────────────────────────────────────
 const initialState = {
   user:    JSON.parse(localStorage.getItem('ct_user'))   || null,
   token:   localStorage.getItem('ct_token')               || null,
@@ -22,7 +9,6 @@ const initialState = {
   error:   null,
 }
 
-// ── Reducer ───────────────────────────────────────────────
 function authReducer(state, action) {
   switch (action.type) {
     case 'AUTH_START':
@@ -31,6 +17,8 @@ function authReducer(state, action) {
       return { ...state, loading: false, user: action.payload.user, token: action.payload.token, error: null }
     case 'AUTH_ERROR':
       return { ...state, loading: false, error: action.payload }
+    case 'UPDATE_USER':
+      return { ...state, user: action.payload }
     case 'LOGOUT':
       return { user: null, token: null, loading: false, error: null }
     default:
@@ -38,13 +26,20 @@ function authReducer(state, action) {
   }
 }
 
-// ── Context ───────────────────────────────────────────────
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState)
 
-  // Persist token + user to localStorage whenever they change
+  function normalizeUser(user, fallbackName = '') {
+    const savedUser = JSON.parse(localStorage.getItem('ct_user') || 'null')
+    return {
+      id: user?.id || user?._id || savedUser?.id || savedUser?._id || null,
+      name: user?.name || savedUser?.name || fallbackName || '',
+      email: user?.email || savedUser?.email || '',
+    }
+  }
+
   useEffect(() => {
     if (state.token) {
       localStorage.setItem('ct_token', state.token)
@@ -55,13 +50,15 @@ export function AuthProvider({ children }) {
     }
   }, [state.token, state.user])
 
-  // ── Actions ─────────────────────────────────────────────
 
   async function login(email, password) {
     dispatch({ type: 'AUTH_START' })
     try {
       const { data } = await axiosInstance.post('/auth/login', { email, password })
-      dispatch({ type: 'AUTH_SUCCESS', payload: { user: data.user, token: data.token } })
+      dispatch({
+        type: 'AUTH_SUCCESS',
+        payload: { user: normalizeUser(data.user), token: data.token },
+      })
       return { success: true }
     } catch (err) {
       const msg = err.response?.data?.message || 'Login failed. Please try again.'
@@ -74,7 +71,10 @@ export function AuthProvider({ children }) {
     dispatch({ type: 'AUTH_START' })
     try {
       const { data } = await axiosInstance.post('/auth/register', { name, email, password })
-      dispatch({ type: 'AUTH_SUCCESS', payload: { user: data.user, token: data.token } })
+      dispatch({
+        type: 'AUTH_SUCCESS',
+        payload: { user: normalizeUser(data.user, name), token: data.token },
+      })
       return { success: true }
     } catch (err) {
       const msg = err.response?.data?.message || 'Registration failed. Please try again.'
@@ -87,6 +87,10 @@ export function AuthProvider({ children }) {
     dispatch({ type: 'LOGOUT' })
   }
 
+  function updateUser(nextUser) {
+    dispatch({ type: 'UPDATE_USER', payload: nextUser })
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -97,6 +101,7 @@ export function AuthProvider({ children }) {
         login,
         register,
         logout,
+        updateUser,
       }}
     >
       {children}
@@ -104,11 +109,8 @@ export function AuthProvider({ children }) {
   )
 }
 
-// ── Custom hook ───────────────────────────────────────────
 export function useAuth() {
   const ctx = useContext(AuthContext)
   if (!ctx) throw new Error('useAuth must be used inside <AuthProvider>')
   return ctx
 }
-
-export default AuthContext

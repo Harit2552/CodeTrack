@@ -1,0 +1,20 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- Initial project setup
+- Backend API with authentication and problems management
+- Frontend with React and Vite
+- Documentation files (README, CHANGELOG, CONTRIBUTING, LICENSE, CODE_OF_CONDUCT)
+- Editor configuration (.editorconfig)
+
+### Changed
+- Updated package descriptions and added keywords
+- Improved .gitignore with better organization
+- Refined contributor-facing documentation for readability and consistency
