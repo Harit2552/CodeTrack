@@ -74,8 +74,9 @@ Comprehensive testing guidelines include:
 
 ### Testing Evidence
 
-* Add screenshots or terminal output for manual checks when applicable
-* Link related test files or commands used to validate changes
+* Include screenshots or terminal output for manual verification wherever applicable
+* Provide links to relevant test files or mention the commands used to validate the changes
+
 
 ### Performance Considerations
 
