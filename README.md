@@ -54,6 +54,10 @@ This README reflects work implemented so far on the backend branch.
 ## Getting Started
 
 To run the project locally, follow the setup instructions in the respective directories.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for recent updates.
 - GET /api/users/profile
 - PUT /api/users/profile
 - GET /api/users/reminder-pref
