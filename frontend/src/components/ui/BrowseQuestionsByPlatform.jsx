@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { problemsApi } from '../../api/problemsApi'
 import { FiSearch, FiFilter, FiX, FiExternalLink, FiRefreshCw, FiAlertCircle } from 'react-icons/fi'
-import toast from 'react-hot-toast'
 
 const PLATFORMS = ['All', 'LeetCode', 'HackerRank', 'Codeforces', 'GeeksforGeeks', 'Other']
 const DIFFICULTIES = ['All', 'Easy', 'Medium', 'Hard']
@@ -58,7 +57,7 @@ export default function BrowseQuestionsByPlatform() {
             
             const { data } = await problemsApi.getByPlatform(params)
             allQuestions.push(...(data?.questions || []))
-          } catch (err) {
+          } catch {
             // Skip this platform if there's an error
             continue
           }
@@ -82,7 +81,7 @@ export default function BrowseQuestionsByPlatform() {
         (q.tags || []).forEach(t => tags.add(t))
       })
       setAllTags([...tags].sort())
-    } catch (err) {
+    } catch {
       setError('Failed to load questions. Please try again.')
       setQuestions([])
       setAllTags([])
@@ -124,7 +123,6 @@ export default function BrowseQuestionsByPlatform() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          {/* <h1 className="text-3xl font-bold text-white">Question Bank</h1> */}
           <p className="text-gray-400 mt-0.5 text-sm">
             {!selectedPlatform
               ? 'Select a platform to browse questions'
