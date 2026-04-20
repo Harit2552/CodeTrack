@@ -1,7 +1,8 @@
 /**
  * Question Bank - Testing Guide
- * 
+ *
  * This guide covers manual and automated testing for the Question Bank feature
+ * Last updated: 2024
  */
 
 /**
