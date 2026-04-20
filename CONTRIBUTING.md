@@ -15,3 +15,9 @@ Thank you for your interest in contributing to CodeTrack!
 - Follow existing code style
 - Use meaningful commit messages
 - Keep changes focused and small
+
+## Development Setup
+
+- Install dependencies: `npm install` in both backend and frontend directories
+- Set up environment variables as described in .env.example
+- Run the development servers: `npm run dev` in respective directories
