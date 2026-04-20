@@ -16,3 +16,4 @@ Non-functional documentation-only maintenance entries.
 - Entry 12: documentation housekeeping note.
 - Entry 13: documentation housekeeping note.
 - Entry 14: documentation housekeeping note.
+- Entry 15: documentation housekeeping note.
