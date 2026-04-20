@@ -1,4 +1,4 @@
-﻿
+﻿// Importing required hooks and components
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { profileApi } from '../api/problemsApi'
@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import { FiEdit2, FiSave, FiX, FiUser, FiMail, FiCode } from 'react-icons/fi'
 
 export default function ProfilePage() {
+  // Getting user info and functions from Auth context
   const { user, logout, updateUser } = useAuth()
 
   const [profile,  setProfile]  = useState(null)
@@ -16,7 +17,8 @@ export default function ProfilePage() {
   const [editMode, setEditMode] = useState(false)
   const [form,     setForm]     = useState({ name: '', email: '' })
   const [saving,   setSaving]   = useState(false)
-
+  
+// Load profile and stats when component mounts
   useEffect(() => {
     async function load() {
       setLoading(true)
@@ -36,11 +38,12 @@ export default function ProfilePage() {
     }
     load()
   }, [])
-
+// Handle saving updated profile
   async function handleSave() {
     if (!form.name.trim()) { toast.error('Name cannot be empty'); return }
     setSaving(true)
     try {
+      // Update profile API call
       const { data } = await profileApi.update({ name: form.name.trim() })
       setProfile(data)
       updateUser({ ...(user || {}), ...data })
@@ -52,11 +55,11 @@ export default function ProfilePage() {
       setSaving(false)
     }
   }
-
+// Update profile API call
   const totalSolved = stats
     ? (stats.easy || 0) + (stats.medium || 0) + (stats.hard || 0)
     : 0
-
+// Stats display items
   const statItems = [
     { label: 'Solved',   value: totalSolved },
     { label: 'Easy',     value: stats?.easy    || 0 },
