@@ -1,195 +1,47 @@
-/**
- * Question Bank - Testing Guide
- *
- * This guide covers manual and automated testing for the Question Bank feature
- * Last updated: 2024
- *
- * For automated tests, run: npm test (when tests are added)
-/**
- * Manual Testing Checklist
- */
+# Testing Guide
 
-// 1. Navigation & Routing
-// ✓ Click "Question Bank" link in navbar
-// ✓ Page loads at /question-bank route
-// ✓ Layout with header and component is rendered
-// ✓ Back button/navigation works correctly
+This document provides guidelines for testing the application. It is designed to help developers and testers understand the testing process and requirements.
 
-// 2. Platform Selection
-// ✓ "All" is selected by default
-// ✓ Questions from all 5 platforms load automatically
-// ✓ Click on specific platform loads its questions
-// ✓ Platform buttons show active state
-// ✓ Questions count changes when platform changes
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Testing Framework](#testing-framework)
+3. [Test Cases](#test-cases)
+4. [Test Execution](#test-execution)
+5. [Reporting Bugs](#reporting-bugs)
+6. [Conclusion](#conclusion)
 
-// 3. Difficulty Filter
-// ✓ "All" is default selection
-// ✓ Filter by "Easy" shows only easy questions
-// ✓ Filter by "Medium" shows only medium questions
-// ✓ Filter by "Hard" shows only hard questions
-// ✓ Difficulty badges display correctly
+## Introduction
+- Purpose: To ensure the application meets the specified requirements and is free of defects.
+- Audience: Developers, Testers, and Quality Assurance Teams.
 
-// 4. Search Functionality
-// ✓ Typing in search box filters questions in real-time
-// ✓ Search matches both title and description
-// ✓ Case-insensitive search works
-// ✓ Clearing search shows all questions again
-// ✓ Search respects current platform and difficulty filters
+## Testing Framework
+The framework to be used for testing the application includes:
+- **Unit Testing**: Testing individual components for expected behavior.
+- **Integration Testing**: Ensuring that different components work together.
+- **System Testing**: Testing the complete system as a whole.
 
-// 5. Tag Filtering
-// ✓ Tags are extracted from questions
-// ✓ Tag filter dropdown shows all unique tags
-// ✓ Selecting a tag filters questions
-// ✓ "All Tags" selection shows all questions
-// ✓ Tag filter works with other filters
+## Test Cases
+Test cases should be structured clearly:
+1. **Test Case ID**: Unique identifier for the test case.
+2. **Description**: A brief statement about what the test case checks.
+3. **Preconditions**: Any requirements that must be met before executing the test case.
+4. **Test Steps**: Detailed steps to execute the test case.
+5. **Expected Result**: What the outcome should be if the test case passes.
+6. **Actual Result**: The actual outcome after executing the test.
+7. **Status**: Pass/Fail.
 
-// 6. Sorting
-// ✓ Default sort is "Newest"
-// ✓ "Newest First" shows recent questions
-// ✓ "Oldest First" shows older questions
-// ✓ "A - Z" sorts alphabetically by title
-// ✓ Sorting works with all filter combinations
+## Test Execution
+- Tests should be executed in a controlled environment.
+- Record the test results and compare them against expected results.
 
-// 7. Loading & Error States
-// ✓ Skeleton loaders appear during loading
-// ✓ Error message appears with retry button if fetch fails
-// ✓ Clicking retry refetches questions
-// ✓ Empty state message shows when no questions found
+## Reporting Bugs
+When bugs are found, report them using the following structure:
+- **Bug ID**: Unique identifier for the bug.
+- **Summary**: Brief description of the issue.
+- **Environment**: Information about the environment where the bug was found.
+- **Steps to Reproduce**: Instructions on how to replicate the issue.
+- **Expected Result**: What was expected to happen.
+- **Actual Result**: What actually happened.
 
-// 8. Integration Tests
-// ✓ AddProblemPage shows question browser above form
-// ✓ QuestionBankPage shows full-width component
-// ✓ Navbar link navigates correctly
-// ✓ Sidebar link (if present) works
-
-// 9. Responsive Design
-// ✓ Component works on desktop (1920px)
-// ✓ Component works on tablet (768px)
-// ✓ Component works on mobile (375px)
-// ✓ All buttons and filters are usable on mobile
-
-// 10. Performance
-// ✓ Page loads within reasonable time
-// ✓ "All" platform aggregation completes within 5 seconds
-// ✓ Filtering provides instant feedback
-// ✓ No memory leaks or excessive re-renders
-
-/**
- * Automated Testing Examples (Jest/React Testing Library)
- */
-
-/*
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { BrowserRouter } from 'react-router-dom'
-import BrowseQuestionsByPlatform from './BrowseQuestionsByPlatform'
-import * as problemsApi from '../../api/problemsApi'
-
-jest.mock('../../api/problemsApi')
-jest.mock('react-hot-toast')
-
-describe('BrowseQuestionsByPlatform', () => {
-  beforeEach(() => {
-    problemsApi.getByPlatform.mockClear()
-  })
-
-  test('renders with All platform selected by default', () => {
-    render(
-      <BrowserRouter>
-        <BrowseQuestionsByPlatform />
-      </BrowserRouter>
-    )
-    expect(screen.getByRole('button', { name: /All/i })).toHaveClass('active')
-  })
-
-  test('fetches questions on platform change', async () => {
-    problemsApi.getByPlatform.mockResolvedValue({
-      data: {
-        questions: [{ _id: '1', title: 'Test', platform: 'LeetCode', tags: [] }]
-      }
-    })
-
-    render(
-      <BrowserRouter>
-        <BrowseQuestionsByPlatform />
-      </BrowserRouter>
-    )
-
-    await waitFor(() => {
-      expect(problemsApi.getByPlatform).toHaveBeenCalled()
-    })
-  })
-
-  test('filters questions by difficulty', async () => {
-    const questions = [
-      { _id: '1', title: 'Easy', difficulty: 'Easy', platform: 'LeetCode', tags: [] },
-      { _id: '2', title: 'Hard', difficulty: 'Hard', platform: 'LeetCode', tags: [] }
-    ]
-
-    problemsApi.getByPlatform.mockResolvedValue({ data: { questions } })
-
-    render(
-      <BrowserRouter>
-        <BrowseQuestionsByPlatform />
-      </BrowserRouter>
-    )
-
-    const easyButton = screen.getByRole('button', { name: /Easy/i })
-    fireEvent.click(easyButton)
-
-    await waitFor(() => {
-      expect(screen.getByText('Easy')).toBeInTheDocument()
-      expect(screen.queryByText('Hard')).not.toBeInTheDocument()
-    })
-  })
-
-  test('shows empty state when no questions found', async () => {
-    problemsApi.getByPlatform.mockResolvedValue({ data: { questions: [] } })
-
-    render(
-      <BrowserRouter>
-        <BrowseQuestionsByPlatform />
-      </BrowserRouter>
-    )
-
-    await waitFor(() => {
-      expect(screen.getByText(/No questions found/i)).toBeInTheDocument()
-    })
-  })
-})
-*/
-
-/**
- * Edge Cases to Test
- */
-
-// 1. Slow network - simulate with network throttling
-// 2. Offline mode - questions should not load, error shown
-// 3. Large dataset - performance test with 1000+ questions
-// 4. Special characters in search - ensure safe filtering
-// 5. User rapid clicking on platforms - prevent race conditions
-// 6. Logout while viewing - redirect to login
-// 7. Unauthorized access - show error
-// 8. Invalid filter combinations - display appropriate message
-
-/**
- * Browser DevTools Testing Tips
- */
-
-// 1. Network Tab:
-//    - Verify API calls are made with correct parameters
-//    - Check response payloads are valid
-//    - Ensure no duplicate requests
-//
-// 2. Performance Tab:
-//    - Check rendering performance
-//    - Look for unnecessary re-renders
-//    - Monitor component lifecycle
-//
-// 3. Console:
-//    - No errors or warnings
-//    - Check network request logging
-//
-// 4. Accessibility Tab:
-//    - Verify ARIA labels
-//    - Check keyboard navigation
-//    - Ensure color contrast is sufficient
+## Conclusion
+Testing is a critical part of software development. Following this guide will ensure that testing is thorough and effective, leading to a more stable and reliable application.
