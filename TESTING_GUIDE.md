@@ -3,8 +3,8 @@
  *
  * This guide covers manual and automated testing for the Question Bank feature
  * Last updated: 2024
- */
-
+ *
+ * For automated tests, run: npm test (when tests are added)
 /**
  * Manual Testing Checklist
  */
