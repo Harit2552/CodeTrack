@@ -1,4 +1,5 @@
 const { Problem, User, QuestionBank } = require("../models");
+// Import utility functions for points, streak, and stats
 const {
   getPointsForDifficulty,
   getStreakAfterSolve,
@@ -38,7 +39,7 @@ const createProblem = async (req, res, next) => {
       // Log the error but don't fail the problem creation
       console.error("Error adding problem to question bank:", bankError.message);
     }
-
+// If problem is solved → update user points & streak
     if (problem.status === "Solved") {
       const user = await User.findById(req.user._id).select("currentStreak lastActive");
       if (user) {
