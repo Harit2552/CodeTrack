@@ -1,7 +1,9 @@
 # Question Bank Feature Documentation
 
 ## Overview
-The Question Bank feature allows users to browse and filter coding questions from multiple platforms without adding their own problems first. This feature provides a comprehensive view of available problems for learning and practice.
+
+The **Question Bank** feature enables users to explore and filter coding problems collected from multiple platforms, without the need to add their own questions first. It offers a centralized and organized view of available problems, making it easier for users to learn, practice, and improve their coding skills.
+
 
 ## Features
 
