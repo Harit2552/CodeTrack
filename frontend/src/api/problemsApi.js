@@ -1,14 +1,14 @@
 ﻿import axiosInstance from './axiosInstance'
 
 export const problemsApi = {
-  getAll:    (params)  => axiosInstance.get('/problems', { params }),
-  getById:   (id)      => axiosInstance.get(`/problems/${id}`),
+  getAll: (params) => axiosInstance.get('/problems', { params }),
+  getById: (id) => axiosInstance.get(`/problems/${id}`),
   getPredefined: (params) => axiosInstance.get('/problems/predefined', { params }),
   getByPlatform: (params) => axiosInstance.get('/problems/browse', { params }),
-  create:    (payload) => axiosInstance.post('/problems', payload),
-  update:    (id, payload) => axiosInstance.put(`/problems/${id}`, payload),
-  remove:    (id)      => axiosInstance.delete(`/problems/${id}`),
-  getStats:  ()        => axiosInstance.get('/problems/stats'),
+  create: (payload) => axiosInstance.post('/problems', payload),
+  update: (id, payload) => axiosInstance.put(`/problems/${id}`, payload),
+  remove: (id) => axiosInstance.delete(`/problems/${id}`),
+  getStats: () => axiosInstance.get('/problems/stats'),
 }
 
 export const badgesApi = {
@@ -16,6 +16,6 @@ export const badgesApi = {
 }
 
 export const profileApi = {
-  get:    ()        => axiosInstance.get('/users/profile'),
+  get: () => axiosInstance.get('/users/profile'),
   update: (payload) => axiosInstance.put('/users/profile', payload),
 }
