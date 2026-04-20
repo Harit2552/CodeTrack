@@ -71,6 +71,11 @@ Comprehensive testing guidelines include:
 * Coverage of edge cases and performance testing scenarios
 * Browser DevTools testing tips
 
+### Testing Evidence
+
+* Add screenshots or terminal output for manual checks when applicable
+* Link related test files or commands used to validate changes
+
 ### Performance Considerations
 
 * Sequential API calls help prevent race conditions
