@@ -142,7 +142,7 @@ export default function DashboardPage() {
           <Link to="/add-problem" className="btn-primary flex items-center gap-2 justify-center">
             <FiPlusCircle size={18} /> Add New Problem
           </Link>
-          <Link to="/problems" className="btn-secondary flex items-center gap-2 justify-center">
+          <Link to="/question-bank" className="btn-secondary flex items-center gap-2 justify-center">
             <FiCheckCircle size={18} /> View All Problems
           </Link>
           <Link to="/badges" className="btn-secondary flex items-center gap-2 justify-center">
