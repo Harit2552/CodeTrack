@@ -2,7 +2,7 @@
 const cron              = require('node-cron')
 const { isUserInactive } = require('../utils/inactivityChecker')
 const { sendReminderEmail } = require('../utils/emailSender')
-
+// Import User model (handle case-sensitive file systems)
 let User
 try {
   User = require('../models/User')
@@ -16,6 +16,7 @@ try {
  * active in the last 24 hours and sends them a nudge email.
  */
 function startReminderJob() {
+  // Schedule cron job (runs at 08:00 AM every day)
   cron.schedule('0 8 * * *', async () => {
     console.log('[ReminderJob] â° Running at', new Date().toISOString())
 
